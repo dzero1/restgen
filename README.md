@@ -28,10 +28,10 @@ restgen -m <datamodel> -f "<model field set>"
 -f - is model field set.
   Ex: -f "name, height(number), gender|male, color"
 
-* When you are using fields, you have to comma seperate the fields names.
-* The default feild type will be string. But you can simply add the data type using parentheses "()"
-* For any default value just use pipe "|" character
-* Both data type and default can be combined, but make sure to use default after the data type. Ex: height(number)|25
+  * When you are using fields, you have to comma seperate the fields names.
+  * The default feild type will be string. But you can simply add the data type using parentheses "()"
+  * For any default value just use pipe "|" character
+  * Both data type and default can be combined, but make sure to use default after the data type. Ex: height(number)|25
 
 ## Contributing
 

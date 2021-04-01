@@ -4,8 +4,8 @@ const chalk = require("chalk");
 const boxen = require("boxen");
 const yargs = require("yargs");
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 const { types } = require("util");
 
 const options = yargs
@@ -23,7 +23,6 @@ const boxenOptions = {
     backgroundColor: "#555555"
 };
 const msgBox = boxen( greeting, boxenOptions );
-
 console.log(msgBox);
 
 const model = options.model;
@@ -35,9 +34,8 @@ let validationTypes = {};
 let testFakers = {};
 
 
-const msg = chalk.yellow("Remember to run ") + chalk.red.bold("yarn lint:fix") + chalk.yellow(" to fix unwanted commas and spaces");
+let msg = chalk.yellow("Remember to run ") + chalk.red.bold("yarn lint:fix") + chalk.yellow(" to fix unwanted commas and spaces");
 console.log(msg);
-
 
 // Creating data model fields
 fields.split(",").forEach((field) => {
@@ -73,7 +71,7 @@ fields.split(",").forEach((field) => {
 
     let _xtype = _type.toLowerCase();
     if (_xtype == "double"){
-        _xtype = 'number'
+        _xtype = "number"
     }
     validationTypes[field] = `Joi.${_xtype}()`
 
@@ -137,21 +135,21 @@ function createFromTemplate(type, replacer){
     let index = `src/${type}s/index.js`;
 
     switch (type){
-        case 'route':
+        case "route":
             to = `src/${type}s/v1/${model}.${type}.js`;
             index = `src/${type}s/v1/index.js`;
             break;
-        case 'fixture':
+        case "fixture":
             from = `/template/tests/${type}s/temp.${type}.jst`
             to = `tests/${type}s/${model}.${type}.js`;
             index = false;
             break;
-        case 'integration':
+        case "integration":
             from = `/template/tests/${type}/temp.test.jst`
             to = `tests/${type}/${model}.test.js`;
             index = false;
             break;
-        case 'unit':
+        case "unit":
             from = `/template/tests/${type}/models/temp.model.test.jst`
             to = `tests/${type}/models/${model}.model.test.js`;
             index = false;
@@ -162,7 +160,7 @@ function createFromTemplate(type, replacer){
 
     from = path.dirname(fs.realpathSync(__filename)) + from;
 
-    fs.readFile(from, 'utf8', (err, data) => {
+    fs.readFile(from, "utf8", (err, data) => {
         if (err) {
           console.error(err)
           return
@@ -190,12 +188,12 @@ function createFromTemplate(type, replacer){
         if (index !== false){
             fs.readFile(index, (err, data) => {
                 if (err) {
-                    console.log(chalk.yellow(index + ' does not exist or cannot read at the moment. Skip updating this file'));
+                    console.log(chalk.yellow(index + " does not exist or cannot read at the moment. Skip updating this file"));
                     return;
                 }
 
-                if (type !== 'route'){
-                    let str = `module.exports.${model}${type.charAt(0).toUpperCase() + type.substr(1) } = require('./${model}.${type}');`;
+                if (type !== "route"){
+                    let str = `module.exports.${model}${type.charAt(0).toUpperCase() + type.substr(1) } = require("./${model}.${type}");`;
                     if (data.indexOf(str) == -1){
                         fs.appendFile(index, str + "\n", err => {
                             if (err) {
@@ -209,14 +207,14 @@ function createFromTemplate(type, replacer){
                     console.log(`
                         *** Please add the following code in to array in routes/v1/index.js file.
 
-                        const ${model}Route = require('./${model}.route');
+                        const ${model}Route = require("./${model}.route");
 
                         ...
 
                         defaultRoutes = [
                             ...
                             {
-                                path: '/${model}',
+                                path: "/${model}",
                                 route: ${model}Route,
                             }
                         ]
@@ -232,17 +230,17 @@ function createFromTemplate(type, replacer){
 
 
 function objToString (obj, level = 0) {
-    var tabs = '\t';
+    var tabs = "\t";
     for (let i = 0; i < level; i++) {
-        tabs += '\t';
+        tabs += "\t";
     }
-    var str = '{\n';
+    var str = "{\n";
     for (var p in obj) {
         if (obj.hasOwnProperty(p)) {
-            if (typeof obj[p] === 'object'){
+            if (typeof obj[p] === "object"){
                 obj[p] = objToString(obj[p], level+1);
             }
-            str += tabs + '\t' + p + ': ' + obj[p] + ',\n';
+            str += tabs + "\t" + p + ": " + obj[p] + ",\n";
         }
     }
     return str + tabs + "}";
