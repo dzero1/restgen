@@ -198,7 +198,10 @@ function createFromTemplate(type, replacer){
                 }
 
                 if (type !== "route"){
-                    let str = `module.exports.${model}${type.charAt(0).toUpperCase() + type.substr(1) } = require("./${model}.${type}");`;
+                    let str = `module.exports.${model}${ type.charAt(0).toUpperCase() + type.substr(1) } = require("./${model}.${type}");`;
+                    if (type == "model"){
+                        str = `module.exports.${Model} = require("./${model}.${type}");`;
+                    }
                     if (data.indexOf(str) == -1){
                         fs.appendFile(index, str + "\n", err => {
                             if (err) {
@@ -209,22 +212,26 @@ function createFromTemplate(type, replacer){
                         });
                     }
                 } else {
-                    console.log(`
-                        *** Please add the following code in to array in routes/v1/index.js file.
+    console.log(`
+        *** Please add the following code in to array in routes/v1/index.js file.
 
-                        const ${model}Route = require("./${model}.route");
+        const ${model}Route = require("./${model}.route");
 
-                        ...
+        ...
 
-                        defaultRoutes = [
-                            ...
-                            {
-                                path: "/${model}",
-                                route: ${model}Route,
-                            }
-                        ]
+        defaultRoutes = [
+            ...
+            {
+                path: "/${model}",
+                route: ${model}Route,
+            }
+        ]
 
-                    `);
+        *** Also add following permission to your user role in src/config/roles.js
+
+        roleRights.set(roles[1], [ ..., 'manage${Model}s', 'get${Model}s', ... ]
+
+    `);
                     /* js.defaultRoutes.push(eval(``)); */
                 }
             });
