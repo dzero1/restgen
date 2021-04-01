@@ -35,7 +35,8 @@ let validationTypes = {};
 let testFakers = {};
 
 
-console.log(chalk.yellow("Remember to run ") + chalk.red.bold("yarn lint:fix") + chalk.yellow(" to fix unwanted commas and spaces"));
+const msg = chalk.yellow("Remember to run ") + chalk.red.bold("yarn lint:fix") + chalk.yellow(" to fix unwanted commas and spaces");
+console.log(msg);
 
 
 // Creating data model fields
