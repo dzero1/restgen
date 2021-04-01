@@ -8,9 +8,6 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<{{Temp}}>}
  */
 const create{{Temp}} = async ({{temp}}Body) => {
-  if (await {{Temp}}.exist({{temp}}Body.numberplate)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, '{{Temp}} already exisit');
-  }
   const {{temp}} = await {{Temp}}.create({{temp}}Body);
   return {{temp}};
 };

@@ -32,6 +32,7 @@ const fields = options.fields;
 let fieldSet = {};
 let validationTypes = {};
 let testFakers = {};
+let filters = [];
 
 
 let msg = chalk.yellow("Remember to run ") + chalk.red.bold("yarn lint:fix") + chalk.yellow(" to fix unwanted commas and spaces");
@@ -87,6 +88,8 @@ fields.split(",").forEach((field) => {
             break;
     }
 
+    filters.push(`'${fields}'`);
+
     if (_default !== false){
         fieldSet[field].default = _default;
     }
@@ -99,7 +102,9 @@ createFromTemplate("model", function (body) {
 });
 
 /* Create the controller */
-createFromTemplate("controller");
+createFromTemplate("controller", function (body) {
+    return body.replace(/{{FILTERS}}/g, filters.join(", "))
+});
 
 /* Create the route */
 createFromTemplate("route");

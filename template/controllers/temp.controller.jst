@@ -10,7 +10,7 @@ const create{{Temp}} = catchAsync(async (req, res) => {
 });
 
 const get{{Temp}}s = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['model', 'manufacturer', 'type', 'makeyear', 'numberplate']);
+  const filter = pick(req.query, [{{FILTERS}}]);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await {{temp}}Service.query{{Temp}}s(filter, options);
   res.send(result);
