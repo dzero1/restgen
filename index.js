@@ -30,23 +30,23 @@ const model = options.model;
 const Model = model.charAt(0).toUpperCase() + model.substr(1);
 
 const fields = options.fields;
-let field_set = {};
+let fieldSet = {};
 let validationTypes = {};
 let testFakers = {};
 
 
-console.log(chalk.yellow(`Remember to run `) + chalk.red.bold('yarn lint:fix') + chalk.yellow(` to fix unwanted commas and spaces`));
+console.log(chalk.yellow("Remember to run ") + chalk.red.bold("yarn lint:fix") + chalk.yellow(" to fix unwanted commas and spaces"));
 
 
 // Creating data model fields
-fields.split(",").forEach(field => {
+fields.split(",").forEach((field) => {
     let _type = "String";
     let required = "true";
     let trim = "true";
     let _default = false;
 
     field = field.trim();
-    if (field.charAt(0) == '-'){
+    if (field.charAt(0) == "-"){
         required = false;
         field = field.substr(1).trim(); // removing "-"
     }
@@ -64,14 +64,14 @@ fields.split(",").forEach(field => {
         field = field.substr(0, hasDataType).trim();  // removing data type
     }
 
-    field_set[field] = {
+    fieldSet[field] = {
         type : _type,
         required : required,
         trim : trim,
-    }
+    };
 
     let _xtype = _type.toLowerCase();
-    if (_xtype == 'double'){
+    if (_xtype == "double"){
         _xtype = 'number'
     }
     validationTypes[field] = `Joi.${_xtype}()`
@@ -89,39 +89,39 @@ fields.split(",").forEach(field => {
     }
 
     if (_default !== false){
-        field_set[field].default = _default;
+        fieldSet[field].default = _default;
     }
 
 });
 
 /* Create the data model */
-createFromTemplate('model', function (body) {
-    return body.replace(/{{FIELDS}}/g, objToString(field_set).toString());
+createFromTemplate("model", function (body) {
+    return body.replace(/{{FIELDS}}/g, objToString(fieldSet).toString());
 });
 
 /* Create the controller */
-createFromTemplate('controller');
+createFromTemplate("controller");
 
 /* Create the route */
-createFromTemplate('route');
+createFromTemplate("route");
 
 /* Create the service */
-createFromTemplate('service');
+createFromTemplate("service");
 
 /* Create the validations */
-createFromTemplate('validation', function (body) {
+createFromTemplate("validation", function (body) {
     return body.replace(/{{TYPES}}/g, objToString(validationTypes).toString());
 });
 
 
 /* Create tests */
-createFromTemplate('fixture', function (body) {
+createFromTemplate("fixture", function (body) {
     return body.replace(/{{DATA}}/g, objToString(testFakers).toString());
 });
-createFromTemplate('integration', function (body) {
+createFromTemplate("integration", function (body) {
     return body.replace(/{{DATA}}/g, objToString(testFakers).toString());
 });
-createFromTemplate('unit', function (body) {
+createFromTemplate("unit", function (body) {
     return body.replace(/{{DATA}}/g, objToString(testFakers).toString());
 });
 
