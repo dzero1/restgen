@@ -1,0 +1,43 @@
+const Joi = require('joi');
+const { objectId } = require('./custom.validation');
+
+const create{{Temp}} = {
+  body: Joi.object().keys(
+      {{TYPES}}
+  ),
+};
+
+const get{{Temp}}s = {
+  query: Joi.object().keys(
+      {{TYPES}}
+  ),
+};
+
+const get{{Temp}} = {
+  params: Joi.object().keys({
+    {{temp}}Id: Joi.string().custom(objectId),
+  }),
+};
+
+const update{{Temp}} = {
+  params: Joi.object().keys({
+    {{temp}}Id: Joi.required().custom(objectId),
+  }),
+  body: Joi.object()
+    .keys({{TYPES}})
+    .min(1),
+};
+
+const delete{{Temp}} = {
+  params: Joi.object().keys({
+    {{temp}}Id: Joi.string().custom(objectId),
+  }),
+};
+
+module.exports = {
+  create{{Temp}},
+  get{{Temp}}s,
+  get{{Temp}},
+  update{{Temp}},
+  delete{{Temp}},
+};

@@ -1,0 +1,31 @@
+const mongoose = require('mongoose');
+const { toJSON, paginate } = require('./plugins');
+
+const {{temp}}Schema = mongoose.Schema(
+  {{FIELDS}},
+  {
+    timestamps: true,
+  }
+);
+
+// add plugin that converts mongoose to json
+{{temp}}Schema.plugin(toJSON);
+{{temp}}Schema.plugin(paginate);
+
+/**
+ * Check if email is taken
+ * @param {string} email - The user's email
+ * @param {ObjectId} [excludeUserId] - The id of the user to be excluded
+ * @returns {Promise<boolean>}
+ */
+{{temp}}Schema.statics.exist = async function (numberplate) {
+  const _{{temp}} = await this.findOne({ numberplate });
+  return !!_{{temp}};
+};
+
+/**
+ * @typedef {{Temp}}
+ */
+const {{Temp}} = mongoose.model('{{Temp}}', {{temp}}Schema);
+
+module.exports = {{Temp}};

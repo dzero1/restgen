@@ -1,0 +1,77 @@
+const httpStatus = require('http-status');
+const { {{Temp}} } = require('../models');
+const ApiError = require('../utils/ApiError');
+
+/**
+ * Create a {{temp}}
+ * @param {Object} {{temp}}Body
+ * @returns {Promise<{{Temp}}>}
+ */
+const create{{Temp}} = async ({{temp}}Body) => {
+  if (await {{Temp}}.exist({{temp}}Body.numberplate)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, '{{Temp}} already exisit');
+  }
+  const {{temp}} = await {{Temp}}.create({{temp}}Body);
+  return {{temp}};
+};
+
+/**
+ * Query for {{temp}}s
+ * @param {Object} filter - Mongo filter
+ * @param {Object} options - Query options
+ * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
+ * @param {number} [options.limit] - Maximum number of results per page (default = 10)
+ * @param {number} [options.page] - Current page (default = 1)
+ * @returns {Promise<QueryResult>}
+ */
+const query{{Temp}}s = async (filter, options) => {
+  const {{temp}}s = await {{Temp}}.paginate(filter, options);
+  return {{temp}}s;
+};
+
+/**
+ * Get {{temp}} by id
+ * @param {ObjectId} id
+ * @returns {Promise<{{Temp}}>}
+ */
+const get{{Temp}}ById = async (id) => {
+  return {{Temp}}.findById(id);
+};
+
+/**
+ * Update {{temp}} by id
+ * @param {ObjectId} {{temp}}Id
+ * @param {Object} updateBody
+ * @returns {Promise<{{Temp}}>}
+ */
+const update{{Temp}}ById = async ({{temp}}Id, updateBody) => {
+  const {{temp}} = await get{{Temp}}ById({{temp}}Id);
+  if (!{{temp}}) {
+    throw new ApiError(httpStatus.NOT_FOUND, '{{Temp}} not found');
+  }
+  Object.assign({{temp}}, updateBody);
+  await {{temp}}.save();
+  return {{temp}};
+};
+
+/**
+ * Delete {{temp}} by id
+ * @param {ObjectId} {{temp}}Id
+ * @returns {Promise<{{Temp}}>}
+ */
+const delete{{Temp}}ById = async ({{temp}}Id) => {
+  const {{temp}} = await get{{Temp}}ById({{temp}}Id);
+  if (!{{temp}}) {
+    throw new ApiError(httpStatus.NOT_FOUND, '{{Temp}} not found');
+  }
+  await {{temp}}.remove();
+  return {{temp}};
+};
+
+module.exports = {
+  create{{Temp}},
+  query{{Temp}}s,
+  get{{Temp}}ById,
+  update{{Temp}}ById,
+  delete{{Temp}}ById,
+};

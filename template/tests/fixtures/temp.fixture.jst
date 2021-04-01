@@ -1,0 +1,19 @@
+const faker = require('faker');
+const {{Temp}} = require('../../src/models/{{temp}}.model');
+
+const {{temp}}One = {{DATA}};
+
+const {{temp}}Two = {{DATA}};
+
+const {{temp}}Three = {{DATA}};
+
+const insert{{Temp}}s = async ({{temp}}s) => {
+  await {{Temp}}.insertMany({{temp}}s.map(({{temp}}) => ({ ...{{temp}} })));
+};
+
+module.exports = {
+  {{temp}}One,
+  {{temp}}Two,
+  {{temp}}Three,
+  insert{{Temp}}s,
+};
