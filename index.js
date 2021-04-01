@@ -88,7 +88,7 @@ fields.split(",").forEach((field) => {
             break;
     }
 
-    filters.push(`'${fields}'`);
+    filters.push(`'${field}'`);
 
     if (_default !== false){
         fieldSet[field].default = _default;

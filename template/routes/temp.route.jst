@@ -9,7 +9,7 @@ const router = express.Router();
 router
   .route('/')
   .post(auth('manage{{Temp}}s'), validate({{temp}}Validation.create{{Temp}}), {{temp}}Controller.create{{Temp}})
-  .get(auth('get{{Temp}}{{Temp}}'), validate({{temp}}Validation.get{{Temp}}s), {{temp}}Controller.get{{Temp}}s);
+  .get(auth('get{{Temp}}'), validate({{temp}}Validation.get{{Temp}}s), {{temp}}Controller.get{{Temp}}s);
 
 router
   .route('/:{{temp}}Id')
